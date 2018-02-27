@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_131">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_121">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_101/jre/lib/ext/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_101/jre/lib/ext/mysql-connector-java-5.1.42-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_121/jre/lib/bcprov-ext-jdk15on-158.jar"/>
+	<classpathentry kind="lib" path="F:/D 드라이브/과제 4-2/전공종합설계/CertMgmtJSP(착한전화 인증)/commons-ssl.jar"/>
+	<classpathentry kind="lib" path="F:/D 드라이브/과제 4-2/전공종합설계/CertMgmtJSP(착한전화 인증)/cos.jar"/>
+	<classpathentry kind="lib" path="F:/D 드라이브/과제 4-2/전공종합설계/CertMgmtJSP(착한전화 인증)/mysql-connector-java-5.1.44-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

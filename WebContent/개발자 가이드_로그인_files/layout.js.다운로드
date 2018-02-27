@@ -1,0 +1,143 @@
+jQuery(function($) {
+    $.timeago.settings.refreshMillis = 5000;
+
+    $('.timeago').timeago();
+
+    // 메인 슬라이더
+    var $slider = $("#layerslider, #layersliderAdmin");
+    if($slider.length) {
+        $slider.layerSlider({
+            pauseOnHover: false,
+            thumbnailNavigation: 'disabled',
+            // responsive: false,
+            responsive: true,
+            responsiveUnder : 1200,
+            // layersContainer: 1,
+            skin: 'xev4',
+            skinsPath: '/layouts/xe_v4/layerslider/skins/'
+        });
+    }
+
+    // BI 다운로드
+    var $downloadXeBi = $('a._action-xe-bi-download');
+    if($downloadXeBi.length)
+    {
+        $downloadXeBi.on('click', function() {
+            if(!window.confirm('Xpress Engine Brand Usage Policy를 숙지한 후 사용하시기 바랍니다.'))
+            {
+                return false;
+            }
+
+            var event_label = $(this).data().biType;
+            if(typeof(ga) != 'undefined') ga('send', 'event', 'BI', 'Download', event_label);
+        });
+    }
+
+    // D2링크
+    var $moveLink = $('a[data-action]');
+    if($moveLink.length)
+    {
+        $moveLink.on('click', function() {
+            var action = $(this).data().action;
+            if(action == 'move-d2' || action == 'move-navercorp')
+            {
+                if(typeof(ga) != 'undefined') ga('send', 'event', 'move', action);
+            }
+        });
+    }
+
+    // 메인 XE COre 다운로드 수
+    var $downloadedCount = $('#xe-core-downloaded');
+    var $latest = $('#xe-core-latest');
+    if($downloadedCount.length)
+    {
+        $.ajax({
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '/index.php?act=getDownloadDownloadCount&module=download',
+            async : false,
+            success: function(result) {
+                var downloaded = result.downloaded_count;
+                var options = {
+                    useEasing : true,
+                    useGrouping : true,
+                    separator : ',',
+                    decimal : '.',
+                };
+                $latest.text('Latest Ver ' + result.version + ' (' + result.date + ')');
+                $downloadedCount.waypoint(function() {
+                    var demo = new countUp("xe-core-downloaded", 0, downloaded, 0, 3, options);
+                    demo.start();
+                }, {triggerOnce : true, offset: 'bottom-in-view'});
+            }
+        });
+    }
+
+    // 메인 데모사이트
+    var $btnMoveDemo = $('.xev4-main a[data-action=move-xedemo]');
+    if($btnMoveDemo.length)
+    {
+        var event_label = 'Main';
+        $btnMoveDemo.on('click', function() {
+            if(typeof(ga) != 'undefined') ga('send', 'event', 'XE Demo', 'move', event_label);
+        });
+    }
+
+    // 서브페이지 이미지 갤러리
+    $('[data-toggle="lightbox-gallery"]').each(function(){
+        $(this).magnificPopup({
+            delegate: 'a.gallery-link',
+            type: 'image',
+            gallery: {
+                enabled: true,
+                navigateByImgClick: true,
+                arrowMarkup: '<button type="button" class="mfp-arrow mfp-arrow-%dir%" title="%title%"></button>',
+                tPrev: 'Previous',
+                tNext: 'Next',
+                tCounter: '<span class="mfp-counter">%curr% of %total%</span>'
+            },
+            image: {titleSrc: 'title'}
+        });
+    });
+
+    $('.dropdown').hover(function(){
+        $(this).addClass('open');
+    });
+
+    $('.dropdown').focus(function(){
+        $(this).addClass('open');
+    });
+
+    $('.dropdown').mouseleave(function(){
+        $(this).removeClass('open');
+    });
+
+    /**
+     * Check a href for an anchor. If exists, and in document, scroll to it.
+     * If href argument ommited, assumes context (this) is HTML Element,
+     * which will be the case when invoked by jQuery after an event
+     */
+    function scroll_if_anchor(href) {
+
+        if(typeof(href) !== 'string') return;
+
+        // You could easily calculate this dynamically if you prefer
+        var fromTop = 60;
+
+        // If our Href points to a valid, non-empty anchor, and is on the same page (e.g. #foo)
+        // Legacy jQuery and IE7 may have issues: http://stackoverflow.com/q/1593174
+        if(href.indexOf("#") == 0) {
+            var $target = $(href);
+            $('html, body').animate({ scrollTop: $target.offset().top - fromTop });
+        }
+    }
+
+    // When our page loads, check to see if it contains and anchor
+    scroll_if_anchor(window.location.hash);
+
+    // Intercept all anchor clicks
+    $("body").on("click", "a", scroll_if_anchor);
+
+});
+
+

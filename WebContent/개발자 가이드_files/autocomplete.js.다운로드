@@ -1,0 +1,26 @@
+/**
+ * @file autocomplete.js
+ * @brief javascript code for autocomplete addon
+ * @author UPGLE (upgle@xpressengine.com)
+ */
+
+hashtag_regexp = /(?:^:|^|\s|>|&nbsp;)#([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣\-\_]+)/g;
+
+jQuery(document).ready(function(){
+	jQuery('.xe_content *').contents().each(function() {
+		
+		var parent = jQuery(this).parent();
+
+	    if(this.nodeType == 3 && !parent.is("a") && !parent.is("pre")  && !parent.is("code")  && !parent.is("xmp") ) {
+	        var text = this.nodeValue;
+
+	        // do like htmlspecialchars
+	        text = jQuery('<html>').text(text).html();
+
+	        jQuery(this).replaceWith( text.replace(
+	        	hashtag_regexp,
+	        	'<a class="hashtag" href="' + request_uri.setQuery('search_keyword','$1').setQuery('search_target','tag').setQuery('mid',current_mid) + '">#$1</a>'
+	        ));
+	    }
+	});
+});
